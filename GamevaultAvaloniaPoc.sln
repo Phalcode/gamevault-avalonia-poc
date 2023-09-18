@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamevaultAvaloniaPoc", "GamevaultAvaloniaPoc\GamevaultAvaloniaPoc.csproj", "{CE064FA0-8E53-42B2-97AF-BBC1C9AB2000}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamevaultAvaloniaPoc.Desktop", "GamevaultAvaloniaPoc.Desktop\GamevaultAvaloniaPoc.Desktop.csproj", "{C4489221-31A9-487F-BC54-64FBCBA0210D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamevaultAvaloniaPoc.Browser", "GamevaultAvaloniaPoc.Browser\GamevaultAvaloniaPoc.Browser.csproj", "{5BD4105D-8125-44AE-B89D-72D6D72D3004}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE064FA0-8E53-42B2-97AF-BBC1C9AB2000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE064FA0-8E53-42B2-97AF-BBC1C9AB2000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE064FA0-8E53-42B2-97AF-BBC1C9AB2000}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE064FA0-8E53-42B2-97AF-BBC1C9AB2000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4489221-31A9-487F-BC54-64FBCBA0210D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4489221-31A9-487F-BC54-64FBCBA0210D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4489221-31A9-487F-BC54-64FBCBA0210D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4489221-31A9-487F-BC54-64FBCBA0210D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BD4105D-8125-44AE-B89D-72D6D72D3004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BD4105D-8125-44AE-B89D-72D6D72D3004}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BD4105D-8125-44AE-B89D-72D6D72D3004}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BD4105D-8125-44AE-B89D-72D6D72D3004}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {07DD60AC-2EF6-4419-A9DD-963468675DCB}
+	EndGlobalSection
+EndGlobal
