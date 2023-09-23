@@ -4,59 +4,53 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GamevaultAvaloniaPoc.Helper
 {
-	internal class WebHelper
-	{
-		internal static string GetRequest(string uri)
-		{
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-			request.UserAgent = $"GameVaultAvaloniaPoc";
-			request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-			var authenticationString = $"{SettingsViewModel.Instance.Username}:{SettingsViewModel.Instance.Password}";
-			var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.UTF8.GetBytes(authenticationString));
-			request.Headers.Add("Authorization", "Basic " + base64EncodedAuthenticationString);
-			using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-			using (Stream stream = response.GetResponseStream())
-			using (StreamReader reader = new StreamReader(stream))
-			{
-				return reader.ReadToEnd();
-			}
-		}
-		internal static string Put(string uri, string payload, bool returnBody = false)
-		{
-			var request = (HttpWebRequest)WebRequest.Create(uri);
-			request.UserAgent = $"GameVaultAvaloniaPoc";
-			request.Method = "PUT";
-			request.ContentType = "application/json";
-			if (payload != null)
-			{
-				var authenticationString = $"{SettingsViewModel.Instance.Username}:{SettingsViewModel.Instance.Password}";
-				var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.UTF8.GetBytes(authenticationString));
-				request.Headers.Add("Authorization", "Basic " + base64EncodedAuthenticationString);
-				request.ContentLength = System.Text.UTF8Encoding.UTF8.GetByteCount(payload);
-				Stream dataStream = request.GetRequestStream();
-				using (StreamWriter sr = new StreamWriter(dataStream))
-				{
-					sr.Write(payload);
-				}
-				dataStream.Close();
-			}
-			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-			if (returnBody)
-			{
-				using (StreamReader responseStreamReader = new StreamReader(response.GetResponseStream()))
-				{
-					return responseStreamReader.ReadToEnd();
-				}
-			}
-			else
-			{
-				return response.StatusCode.ToString();
-			}
-		}
-	}
+    internal class WebHelper
+    {
+        internal async static Task<string> GetRequest(string uri)
+        {
+            using (var client = new HttpClient())
+            {
+                var authenticationString = $"{SettingsViewModel.Instance.Username}:{SettingsViewModel.Instance.Password}";
+                var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.UTF8.GetBytes(authenticationString));
+                client.DefaultRequestHeaders.Add("Authorization", "Basic " + base64EncodedAuthenticationString);
+                var response = await client.GetAsync(SettingsViewModel.Instance.ServerUrl + "api/v1/users/me");
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+        public static async Task DownloadImageFromUrlAsync(string imageUrl, string cacheFile)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var authenticationString = $"{SettingsViewModel.Instance.Username}:{SettingsViewModel.Instance.Password}";
+                var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.UTF8.GetBytes(authenticationString));
+                client.DefaultRequestHeaders.Add("Authorization", "Basic " + base64EncodedAuthenticationString);
+                long offset = 0;
+                using (HttpResponseMessage response = await client.GetAsync(imageUrl))
+                {
+                    using (Stream streamToReadFrom = await response.Content.ReadAsStreamAsync())
+                    {
+                        using (FileStream fs = new FileStream(cacheFile, FileMode.Create, FileAccess.Write, FileShare.Read))
+                        {
+                            while (streamToReadFrom.Position < streamToReadFrom.Length)
+                            {
+                                var nextChunkSize = Math.Min(1024, (int)(streamToReadFrom.Length - offset));
+                                var data = new byte[nextChunkSize];
+
+                                streamToReadFrom.Read(data, 0, nextChunkSize);
+                                fs.Write(data, 0, nextChunkSize);
+                                offset += nextChunkSize;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

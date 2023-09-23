@@ -7,21 +7,24 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="GamevaultAvaloniaPoc.Views.MainView"
              x:DataType="vm:MainViewModel">
-  <Design.DataContext>
+	<Design.DataContext>
 
-  </Design.DataContext>
+	</Design.DataContext>
 
-  <Grid>
-    <TabControl>
-      <TabItem Header="Library">
-        <views:LibraryView/>
-      </TabItem>
-      <TabItem Header="Downloads">
-      </TabItem>
-      <TabItem Header="Settings">
-        <views:SettingsView/>
-      </TabItem>
-    </TabControl>
-    <views:CacheImage Source="{Binding Path=UserIcon.ProfilePicture.Source}" HorizontalAlignment="Right" VerticalAlignment="Top" Height="50" Width="50"/>
-  </Grid>
+	<Grid>
+		<TabControl>
+			<TabItem Header="Library">
+				<views:LibraryView/>
+			</TabItem>
+			<TabItem Header="Downloads">
+			</TabItem>
+			<TabItem Header="Settings">
+				<views:SettingsView/>
+			</TabItem>
+		</TabControl>
+		<Border CornerRadius="5" BorderBrush="Red" BorderThickness="2" Height="55" Width="55" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
+			<views:CacheImage x:Name="uiImage" Data="{Binding UserIcon}" ImageCacheType="UserIcon" Height="50" Width="50" ZIndex="1"/>
+		</Border>
+		<TextBlock Text="{Binding UserIcon.Username}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,70,10,0"/>
+	</Grid>
 </UserControl>

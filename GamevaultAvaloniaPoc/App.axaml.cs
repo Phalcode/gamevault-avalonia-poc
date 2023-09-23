@@ -25,10 +25,10 @@ public partial class App : Application
 		}
 		else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
 		{
-			singleViewPlatform.MainView = new MainView
-			{
-				DataContext = MainViewModel.Instance
-			};
+			singleViewPlatform.MainView = new MainView();
+			//{
+			//	DataContext = MainViewModel.Instance
+			//};
 		}
 
 		base.OnFrameworkInitializationCompleted();

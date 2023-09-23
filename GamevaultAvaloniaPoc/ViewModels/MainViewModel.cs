@@ -25,7 +25,7 @@ internal class MainViewModel : ViewModelBase
 	#endregion
 
 	private User? usericon { get; set; }
-	internal User? UserIcon
+	public User? UserIcon
 	{
 		get
 		{
